@@ -1,14 +1,15 @@
 package com.example.apipostgress.models;
 
 import java.io.Serializable;
-import java.util.List;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+@Entity
 @Table(name = "posts")
 public class PostModel implements Serializable{
   private static final long serialVersionUID = 1L;
@@ -23,8 +24,6 @@ public class PostModel implements Serializable{
   private String description;
   @Column(name = "photo")
   private String photo;
-  @Column(name = "comment")
-  private List<CommentModel> comment;
 
   public Long getId() {
     return id;
@@ -49,11 +48,5 @@ public class PostModel implements Serializable{
   }
   public void setPhoto(String photo) {
     this.photo = photo;
-  }
-  public List<CommentModel> getComment() {
-    return comment;
-  }
-  public void setComment(List<CommentModel> comment) {
-    this.comment = comment;
   }
 }

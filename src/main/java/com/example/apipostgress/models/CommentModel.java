@@ -1,11 +1,13 @@
 package com.example.apipostgress.models;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+@Entity
 @Table(name = "comments")
 public class CommentModel {
   private static final long serialVersionUID = 1L;
@@ -15,26 +17,7 @@ public class CommentModel {
   @Column(name = "id")
   private Long id;
   @Column(name = "author")
-  private Long author;
+  private Integer author;
   @Column(name = "description")
   private String description;
-
-  public Long getId() {
-    return id;
-  }
-  public void setId(Long id) {
-    this.id = id;
-  }
-  public Long getAuthor() {
-    return author;
-  }
-  public void setAuthor(Long author) {
-    this.author = author;
-  }
-  public String getDescription() {
-    return description;
-  }
-  public void setDescription(String description) {
-    this.description = description;
-  }
 }

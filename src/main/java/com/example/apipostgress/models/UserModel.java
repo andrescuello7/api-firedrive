@@ -1,6 +1,7 @@
 package com.example.apipostgress.models;
 
 import java.io.Serializable;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,6 +27,8 @@ public class UserModel implements Serializable {
   private String fullname;
   @Column(name = "photo")
   private String photo;
+  @Column(name = "posts")
+  private List<PostModel> posts;
 
   public Long getId() {
     return id;
@@ -56,5 +59,11 @@ public class UserModel implements Serializable {
   }
   public void setPhoto(String photo) {
     this.photo = photo;
+  }
+  public List<PostModel> getPosts() {
+    return posts;
+  }
+  public void setPosts(List<PostModel> posts) {
+    this.posts = posts;
   }
 }

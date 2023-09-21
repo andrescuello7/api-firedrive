@@ -7,5 +7,6 @@ import com.example.apipostgress.models.PostModel;
 public interface IPostServices {
   public List<PostModel> findAll();
   public void deleteById(Long id);
+  public PostModel findById(Long id);
   public PostModel save(PostModel model);
 }

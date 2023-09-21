@@ -19,14 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.apipostgress.models.PostModel;
 import com.example.apipostgress.services.PostServices;
 
-
 @CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("/api")
 public class PostController {
   @Autowired
   private PostServices postServices;
-  
+
   @GetMapping(value = "/posts")
   public ResponseEntity<Object> get() {
     Map<String, Object> map = new HashMap<String, Object>();

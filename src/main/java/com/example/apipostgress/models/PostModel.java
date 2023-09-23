@@ -1,16 +1,12 @@
 package com.example.apipostgress.models;
 
 import java.io.Serializable;
-import java.util.Collection;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -31,9 +27,10 @@ public class PostModel implements Serializable{
   @Column(name = "photo", nullable = false, columnDefinition = "TEXT DEFAULT ''")
   private String photo;
 
-  @ManyToMany
-  @JoinTable(name = "post_comments", joinColumns = @JoinColumn(name = "post_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "comment_id", referencedColumnName = "id"))
-  private Collection<CommentModel> comments;
+  //TODO i18n: relation with comments
+  // @ManyToMany
+  // @JoinTable(name = "post_comments", joinColumns = @JoinColumn(name = "post_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "comment_id", referencedColumnName = "id"))
+  // private Collection<CommentModel> comments;
 
 
   public Long getId() {
@@ -66,12 +63,12 @@ public class PostModel implements Serializable{
   }
 
 
-  public Collection<CommentModel> getComments() {
-    return comments;
-  }
+  //Todo I18N: SETTERS AND GETTERS COMMENTS
+  // public Collection<CommentModel> getComments() {
+  //   return comments;
+  // }
 
-
-  public void setComments(Collection<CommentModel> comments) {
-    this.comments = comments;
-  }
+  // public void setComments(Collection<CommentModel> comments) {
+  //   this.comments = comments;
+  // }
 }

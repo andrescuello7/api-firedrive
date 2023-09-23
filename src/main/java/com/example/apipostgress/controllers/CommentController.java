@@ -1,8 +1,6 @@
 package com.example.apipostgress.controllers;
 
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -33,11 +31,17 @@ public class CommentController {
   public ResponseEntity<Object> create(@PathVariable Long id, @RequestBody CommentModel comment) {
     Map<String, Object> map = new HashMap<String, Object>();
     try {
-      CommentModel saveComment = commentServices.save(comment);
-      PostModel post = postServices.findById(id);
-      List<CommentModel> listComments = Collections.singletonList(saveComment);
-      post.setComments(listComments);
-      return new ResponseEntity<Object>(post, HttpStatus.OK);
+      Optional<PostModel> postOptional = postServices.findById(id);
+      if (postOptional.isPresent()) {
+        CommentModel saveComment = commentServices.save(comment);
+        //TODO i18n: add comment
+        // PostModel post = postOptional.get();
+        // List<CommentModel> listComments = Collections.singletonList(saveComment);
+        // post.setComments(listComments);
+        return new ResponseEntity<>(saveComment, HttpStatus.OK);
+      } else {
+        return new ResponseEntity<>("Post not found", HttpStatus.NOT_FOUND);
+      }
     } catch (Exception e) {
       map.put(null, e.getMessage());
       return new ResponseEntity<Object>(map, HttpStatus.INTERNAL_SERVER_ERROR);

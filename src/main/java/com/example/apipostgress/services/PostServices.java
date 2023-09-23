@@ -31,8 +31,8 @@ public class PostServices implements IPostServices {
 
   @Override
   @Transactional
-  public PostModel findById(Long id) {
-    return postRepository.findById(id).orElse(null);
+  public Optional<PostModel> findById(Long id) {
+    return postRepository.findById(id);
   }
 
   @Override

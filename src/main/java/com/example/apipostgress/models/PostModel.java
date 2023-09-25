@@ -24,7 +24,7 @@ public class PostModel implements Serializable{
   @Column(name = "description")
   private String description;
   
-  @Column(name = "photo", nullable = false, columnDefinition = "TEXT DEFAULT ''")
+  @Column(name = "photo", columnDefinition = "TEXT DEFAULT ''")
   private String photo;
 
   //TODO i18n: relation with comments

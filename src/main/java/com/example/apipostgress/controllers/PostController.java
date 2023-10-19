@@ -3,6 +3,7 @@ package com.example.apipostgress.controllers;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,6 +32,18 @@ public class PostController {
     Map<String, Object> map = new HashMap<String, Object>();
     try {
       List<PostModel> response = postServices.findAll();
+      return new ResponseEntity<Object>(response, HttpStatus.OK);
+    } catch (Exception e) {
+      map.put(null, e.getMessage());
+      return new ResponseEntity<Object>(map, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  @GetMapping(value = "/post/{id}")
+  public ResponseEntity<Object> get(@PathVariable Long id) {
+    Map<String, Object> map = new HashMap<String, Object>();
+    try {
+      Optional<PostModel> response = postServices.findById(id);
       return new ResponseEntity<Object>(response, HttpStatus.OK);
     } catch (Exception e) {
       map.put(null, e.getMessage());

@@ -11,7 +11,6 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<UserModel, Long> {
   List<UserModel> findAll();
-  UserModel save(UserModel model);
   void deleteById(Long id);
   UserModel findByEmail(String email);
 }

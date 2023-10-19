@@ -11,6 +11,5 @@ import java.util.List;
 @Repository
 public interface PostRepository extends JpaRepository<PostModel, Long> {
   List<PostModel> findAll();
-  PostModel save(PostModel model);
   void deleteById(Long id);
 }

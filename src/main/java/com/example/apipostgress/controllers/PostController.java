@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.apipostgress.models.PostModel;
+import com.example.apipostgress.models.posts.PostModel;
+import com.example.apipostgress.models.posts.PostWithCommentsModel;
 import com.example.apipostgress.services.PostServices;
 
 @CrossOrigin(maxAge = 3600)
@@ -27,11 +28,12 @@ public class PostController {
   @Autowired
   private PostServices postServices;
 
+  //Get all posts 
   @GetMapping(value = "/posts")
   public ResponseEntity<Object> get() {
     Map<String, Object> map = new HashMap<String, Object>();
     try {
-      List<PostModel> response = postServices.findAll();
+      List<PostWithCommentsModel> response = postServices.findAllPostsWithComments();
       return new ResponseEntity<Object>(response, HttpStatus.OK);
     } catch (Exception e) {
       map.put(null, e.getMessage());
@@ -39,18 +41,24 @@ public class PostController {
     }
   }
 
+  //Get by ID
   @GetMapping(value = "/post/{id}")
   public ResponseEntity<Object> get(@PathVariable Long id) {
     Map<String, Object> map = new HashMap<String, Object>();
     try {
       Optional<PostModel> response = postServices.findById(id);
-      return new ResponseEntity<Object>(response, HttpStatus.OK);
+      if (response.isPresent()) {
+        return new ResponseEntity<Object>(response, HttpStatus.OK);
+      } else {
+        return new ResponseEntity<Object>("Error in find post by ID", HttpStatus.BAD_REQUEST);
+      }
     } catch (Exception e) {
       map.put(null, e.getMessage());
       return new ResponseEntity<Object>(map, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
+  //Post Posts
   @PostMapping(value = "/post")
   public ResponseEntity<Object> create(@RequestBody PostModel post) {
     Map<String, Object> map = new HashMap<String, Object>();
@@ -63,6 +71,8 @@ public class PostController {
     }
   }
 
+
+  //Delete Posts
   @DeleteMapping(value = "/post/{id}")
   public ResponseEntity<Object> delete(@PathVariable Long id) {
     Map<String, Object> map = new HashMap<String, Object>();

@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.apipostgress.models.AuthModel;
-import com.example.apipostgress.models.UserModel;
+import com.example.apipostgress.models.users.AuthModel;
+import com.example.apipostgress.models.users.UserModel;
 import com.example.apipostgress.services.UserServices;
 
 
@@ -28,6 +28,7 @@ public class UserController {
   @Autowired
   private UserServices userServices;
   
+  // Get all users
   @GetMapping(value = "/users")
   public ResponseEntity<Object> get() {
     Map<String, Object> map = new HashMap<String, Object>();
@@ -40,30 +41,7 @@ public class UserController {
     }
   }
 
-  @PostMapping(value = "/users")
-  public ResponseEntity<Object> create(@RequestBody UserModel user) {
-    Map<String, Object> map = new HashMap<String, Object>();
-    try {
-      UserModel response = userServices.save(user);
-      return new ResponseEntity<Object>(response, HttpStatus.OK);
-    } catch (Exception e) {
-      map.put(null, e.getMessage());
-      return new ResponseEntity<Object>(map, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-  }
-
-  @DeleteMapping(value = "/user/{id}")
-  public ResponseEntity<Object> delete(@PathVariable Long id) {
-    Map<String, Object> map = new HashMap<String, Object>();
-    try {
-      userServices.deleteById(id);
-      return new ResponseEntity<Object>(true, HttpStatus.OK);
-    } catch (Exception e) {
-      map.put(null, e.getMessage());
-      return new ResponseEntity<Object>(map, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-  }
-
+  // Get user by ID
   @GetMapping(value = "/user/{id}")
   public ResponseEntity<Object> findById(@PathVariable Long id) {
     Map<String, Object> map = new HashMap<String, Object>();
@@ -76,6 +54,20 @@ public class UserController {
     }
   }
 
+  // Post users
+  @PostMapping(value = "/users")
+  public ResponseEntity<Object> create(@RequestBody UserModel user) {
+    Map<String, Object> map = new HashMap<String, Object>();
+    try {
+      UserModel response = userServices.save(user);
+      return new ResponseEntity<Object>(response, HttpStatus.OK);
+    } catch (Exception e) {
+      map.put(null, e.getMessage());
+      return new ResponseEntity<Object>(map, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  // Auth method
   @PostMapping(value = "/authentication")
   public ResponseEntity<Object> isAuthenticated(@RequestBody AuthModel auth) {
     Map<String, Object> map = new HashMap<String, Object>();
@@ -87,4 +79,18 @@ public class UserController {
       return new ResponseEntity<Object>(map, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+  
+  // Delete user by ID
+  @DeleteMapping(value = "/user/{id}")
+  public ResponseEntity<Object> delete(@PathVariable Long id) {
+    Map<String, Object> map = new HashMap<String, Object>();
+    try {
+      userServices.deleteById(id);
+      return new ResponseEntity<Object>(true, HttpStatus.OK);
+    } catch (Exception e) {
+      map.put(null, e.getMessage());
+      return new ResponseEntity<Object>(map, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
 }

@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.apipostgress.interfaces.IUserServices;
-import com.example.apipostgress.models.AuthModel;
-import com.example.apipostgress.models.UserModel;
+import com.example.apipostgress.models.users.AuthModel;
+import com.example.apipostgress.models.users.UserModel;
 import com.example.apipostgress.repositories.UserRepository;
 
 import jakarta.transaction.Transactional;

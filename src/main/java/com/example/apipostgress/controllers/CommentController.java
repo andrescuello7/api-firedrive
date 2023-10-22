@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.apipostgress.models.CommentModel;
-import com.example.apipostgress.models.PostModel;
+import com.example.apipostgress.models.posts.CommentModel;
+import com.example.apipostgress.models.posts.PostModel;
 import com.example.apipostgress.services.CommentServices;
 import com.example.apipostgress.services.PostServices;
 
@@ -30,6 +30,7 @@ public class CommentController {
   @Autowired
   private PostServices postServices;
 
+  // Get all comments
   @GetMapping(value = "/comments")
   public ResponseEntity<Object> findAll() {
     Map<String, Object> map = new HashMap<String, Object>();
@@ -42,6 +43,7 @@ public class CommentController {
     }
   }
 
+  // Get comment by ID
   @GetMapping(value = "/comment/{id}")
   public ResponseEntity<Object> findById(@PathVariable Long id) {
     Map<String, Object> map = new HashMap<String, Object>();
@@ -54,24 +56,15 @@ public class CommentController {
     }
   }
 
-  @GetMapping(value = "/comment/post/{id}")
-  public ResponseEntity<Object> findPostById(@PathVariable Long id) {
+  // Post comment
+  @PostMapping(value = "/comment/{id}")
+  public ResponseEntity<Object> create(@PathVariable Long id, @RequestBody CommentModel comment) {
     Map<String, Object> map = new HashMap<String, Object>();
     try {
-      List<CommentModel> findPostId = commentServices.findPostId(id);
-      return new ResponseEntity<>(findPostId, HttpStatus.OK);
-    } catch (Exception e) {
-      map.put(null, e.getMessage());
-      return new ResponseEntity<Object>(map, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-  }
-
-  @PostMapping(value = "/comment")
-  public ResponseEntity<Object> create(@RequestBody CommentModel comment) {
-    Map<String, Object> map = new HashMap<String, Object>();
-    try {
-      Optional<PostModel> postOptional = postServices.findById(comment.getPostId());
+      Optional<PostModel> postOptional = postServices.findById(id);
       if (postOptional.isPresent()) {
+        PostModel post = postOptional.get();
+        comment.setPost(post);
         CommentModel saveComment = commentServices.save(comment);
         return new ResponseEntity<>(saveComment, HttpStatus.OK);
       } else {

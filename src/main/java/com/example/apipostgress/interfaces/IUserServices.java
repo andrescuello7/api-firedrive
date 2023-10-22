@@ -2,8 +2,8 @@ package com.example.apipostgress.interfaces;
 
 import java.util.List;
 
-import com.example.apipostgress.models.AuthModel;
-import com.example.apipostgress.models.UserModel;
+import com.example.apipostgress.models.users.AuthModel;
+import com.example.apipostgress.models.users.UserModel;
 
 public interface IUserServices {
   public List<UserModel> findAll();

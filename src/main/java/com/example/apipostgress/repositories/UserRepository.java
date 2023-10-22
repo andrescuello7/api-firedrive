@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import org.springframework.stereotype.Repository;
 
-import com.example.apipostgress.models.UserModel;
+import com.example.apipostgress.models.users.UserModel;
 
 import java.util.List;
 

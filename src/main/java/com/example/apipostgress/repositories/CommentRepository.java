@@ -7,10 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import org.springframework.stereotype.Repository;
 
-import com.example.apipostgress.models.CommentModel;
+import com.example.apipostgress.models.posts.CommentModel;
 
 @Repository
 public interface CommentRepository extends JpaRepository<CommentModel, Long> {
     public List<CommentModel> findAll();
     public Optional<CommentModel> findById(Long id);
+    public void deleteById(Long id);
 }

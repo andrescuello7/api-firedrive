@@ -11,12 +11,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.apipostgress.models.users.AuthModel;
 import com.example.apipostgress.models.users.UserModel;
 import com.example.apipostgress.services.UserServices;
 
@@ -47,32 +44,6 @@ public class UserController {
     Map<String, Object> map = new HashMap<String, Object>();
     try {
       UserModel response = userServices.findById(id);
-      return new ResponseEntity<Object>(response, HttpStatus.OK);
-    } catch (Exception e) {
-      map.put(null, e.getMessage());
-      return new ResponseEntity<Object>(map, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-  }
-
-  // Post users
-  @PostMapping(value = "/users")
-  public ResponseEntity<Object> create(@RequestBody UserModel user) {
-    Map<String, Object> map = new HashMap<String, Object>();
-    try {
-      UserModel response = userServices.save(user);
-      return new ResponseEntity<Object>(response, HttpStatus.OK);
-    } catch (Exception e) {
-      map.put(null, e.getMessage());
-      return new ResponseEntity<Object>(map, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-  }
-
-  // Auth method
-  @PostMapping(value = "/authentication")
-  public ResponseEntity<Object> isAuthenticated(@RequestBody AuthModel auth) {
-    Map<String, Object> map = new HashMap<String, Object>();
-    try {
-      Boolean response = userServices.isAuthenticated(auth);
       return new ResponseEntity<Object>(response, HttpStatus.OK);
     } catch (Exception e) {
       map.put(null, e.getMessage());

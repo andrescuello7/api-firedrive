@@ -35,7 +35,10 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.applyPermitDefaultValues();
-        config.setAllowedOrigins(Arrays.asList("http://127.0.0.1:3000", "https://firedrive.vercel.app"));
+        config.setAllowedOrigins(Arrays.asList("https://firedrive.vercel.app"));
+        // config.setAllowedOrigins(Arrays.asList("http://127.0.0.1:3000"));
+        config.addAllowedMethod("*");
+        config.addAllowedHeader("*");
         source.registerCorsConfiguration("/**", config);
         return source;
     }
@@ -45,11 +48,11 @@ public class SecurityConfig {
         JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter();
         jwtAuthenticationFilter.setAuthenticationManager(authManager);
         jwtAuthenticationFilter.setFilterProcessesUrl("/api/auth");
-        http.cors();
+
         return http
                 .csrf().disable()
                 .authorizeRequests()
-                    .requestMatchers("/api/users", "/api/posts").permitAll() 
+                    .requestMatchers("/api/users", "/api/posts", "/api/auth").permitAll() 
                     .anyRequest().authenticated()
                     .and()
                 .sessionManagement()

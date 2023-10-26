@@ -1,6 +1,7 @@
 package com.example.apipostgress.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -34,6 +35,12 @@ public class UserServices implements IUserServices {
   @Transactional
   public void deleteById(Long id) {
     userRepository.deleteById(id);
+  }
+
+  @Override
+  @Transactional
+  public UserModel findByEmail(String email) {
+    return userRepository.findByEmail(email);
   }
 
   @Override

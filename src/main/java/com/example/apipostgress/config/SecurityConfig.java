@@ -35,7 +35,7 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.applyPermitDefaultValues();
-        config.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+        config.setAllowedOrigins(Arrays.asList("http://localhost:3000", "https://firedrive.vercel.app"));
         source.registerCorsConfiguration("/**", config);
         return source;
     }

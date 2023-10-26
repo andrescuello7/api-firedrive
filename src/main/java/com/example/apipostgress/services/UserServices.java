@@ -3,6 +3,7 @@ package com.example.apipostgress.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.apipostgress.interfaces.IUserServices;
@@ -38,6 +39,9 @@ public class UserServices implements IUserServices {
   @Override
   @Transactional
   public UserModel save(UserModel model) {
+    String encryptedPass = new BCryptPasswordEncoder().encode(model.getPassword());
+    model.setPassword(encryptedPass);
+    System.out.println(model.getPassword());
     return userRepository.save(model);
   }
 

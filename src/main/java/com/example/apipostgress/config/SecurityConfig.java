@@ -35,7 +35,7 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.applyPermitDefaultValues();
-        config.setAllowedOrigins(Arrays.asList("http://localhost:3000", "https://firedrive.vercel.app"));
+        config.setAllowedOrigins(Arrays.asList("http://127.0.0.1:3000", "https://firedrive.vercel.app"));
         source.registerCorsConfiguration("/**", config);
         return source;
     }
@@ -57,6 +57,8 @@ public class SecurityConfig {
                     .and()
                 .addFilter(jwtAuthenticationFilter)
                 .addFilterBefore(jwtAutorizationFilter, UsernamePasswordAuthenticationFilter.class)
+                .cors()
+                .and()
                 .build();
     }
 

@@ -43,8 +43,19 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         UserDetailsImpl userDetailsImpl = (UserDetailsImpl) authResult.getPrincipal();
         String token = TokenUtils.createAccessToken(userDetailsImpl.getUsername(), userDetailsImpl.getEmail());
+        
+        AuthResponse authResponse = new AuthResponse();
+        authResponse.setToken("Bearer " + token);
+        authResponse.setMessage("Authentication successful");
 
+        ObjectMapper objectMapper = new ObjectMapper();
+        String body = objectMapper.writeValueAsString(authResponse);
+        
         response.addHeader("Authorization", "Bearer " + token);
+        response.getWriter().flush();
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(body);
         response.getWriter().flush();
         super.successfulAuthentication(request, response, filterChain, authResult);
     }

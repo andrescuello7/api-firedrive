@@ -1,5 +1,7 @@
 package com.example.apipostgress.config;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +14,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.example.apipostgress.config.Jwt.JwtAuthenticationFilter;
 import com.example.apipostgress.config.Jwt.JwtAutorizationFilter;
@@ -24,17 +29,26 @@ public class SecurityConfig {
     @Autowired
     private UserDetailsService userDetailsService;
     private JwtAutorizationFilter jwtAutorizationFilter;
+    
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.applyPermitDefaultValues();
+        config.setAllowedOrigins(Arrays.asList("http://localhost:3000", "https://firedrive.vercel.app"));
+        source.registerCorsConfiguration("/**", config);
+        return source;
+    }
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager authManager) throws Exception {
         JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter();
         jwtAuthenticationFilter.setAuthenticationManager(authManager);
         jwtAuthenticationFilter.setFilterProcessesUrl("/api/auth");
-
+        http.cors();
         return http
                 .csrf().disable()
                 .authorizeRequests()
-                    .requestMatchers("/api/auth").permitAll()
                     .requestMatchers("/api/users", "/api/posts").permitAll() 
                     .anyRequest().authenticated()
                     .and()

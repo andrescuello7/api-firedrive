@@ -26,6 +26,8 @@ public class UserModel implements Serializable {
   private String username;
   @Column(name = "photo")
   private String photo;
+  @Column(name = "cover")
+  private String cover;
 
   public Long getId() {
     return id;
@@ -56,5 +58,11 @@ public class UserModel implements Serializable {
   }
   public void setPhoto(String photo) {
     this.photo = photo;
+  }
+  public String getCover() {
+    return cover;
+  }
+  public void setCover(String cover) {
+    this.cover = cover;
   }
 }

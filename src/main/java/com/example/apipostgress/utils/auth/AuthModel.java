@@ -1,4 +1,4 @@
-package com.example.apipostgress.models.users;
+package com.example.apipostgress.utils.auth;
 
 public class AuthModel {
   String email;

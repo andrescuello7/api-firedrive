@@ -3,7 +3,6 @@ package com.example.apipostgress.controllers;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.apipostgress.models.posts.CommentModel;
-import com.example.apipostgress.models.posts.PostModel;
 import com.example.apipostgress.services.CommentServices;
-import com.example.apipostgress.services.PostServices;
 
 @CrossOrigin(maxAge = 3600)
 @RestController
@@ -27,8 +24,6 @@ import com.example.apipostgress.services.PostServices;
 public class CommentController {
   @Autowired
   private CommentServices commentServices;
-  @Autowired
-  private PostServices postServices;
 
   // Get all comments
   @GetMapping(value = "/comments")
@@ -57,19 +52,12 @@ public class CommentController {
   }
 
   // Post comment
-  @PostMapping(value = "/comment/{id}")
-  public ResponseEntity<Object> create(@PathVariable Long id, @RequestBody CommentModel comment) {
+  @PostMapping(value = "/comment")
+  public ResponseEntity<Object> create(@RequestBody CommentModel comment) {
     Map<String, Object> map = new HashMap<String, Object>();
     try {
-      Optional<PostModel> postOptional = postServices.findById(id);
-      if (postOptional.isPresent()) {
-        PostModel post = postOptional.get();
-        comment.setPost(post);
-        CommentModel saveComment = commentServices.save(comment);
-        return new ResponseEntity<>(saveComment, HttpStatus.OK);
-      } else {
-        return new ResponseEntity<>("Post not found", HttpStatus.NOT_FOUND);
-      }
+      CommentModel saveComment = commentServices.save(comment);
+      return new ResponseEntity<>(saveComment, HttpStatus.OK);
     } catch (Exception e) {
       map.put(null, e.getMessage());
       return new ResponseEntity<Object>(map, HttpStatus.INTERNAL_SERVER_ERROR);

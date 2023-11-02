@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.apipostgress.models.posts.PostModel;
-import com.example.apipostgress.models.posts.PostWithCommentsModel;
 import com.example.apipostgress.services.PostServices;
 
 @CrossOrigin(maxAge = 3600)
@@ -33,7 +32,7 @@ public class PostController {
   public ResponseEntity<Object> get() {
     Map<String, Object> map = new HashMap<String, Object>();
     try {
-      List<PostWithCommentsModel> response = postServices.findAllPostsWithComments();
+      List<PostModel> response = postServices.findAll();
       return new ResponseEntity<Object>(response, HttpStatus.OK);
     } catch (Exception e) {
       map.put(null, e.getMessage());

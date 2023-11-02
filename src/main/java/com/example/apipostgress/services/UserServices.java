@@ -7,9 +7,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.apipostgress.interfaces.IUserServices;
-import com.example.apipostgress.models.users.AuthModel;
 import com.example.apipostgress.models.users.UserModel;
 import com.example.apipostgress.repositories.UserRepository;
+import com.example.apipostgress.utils.auth.AuthModel;
 
 import jakarta.transaction.Transactional;
 

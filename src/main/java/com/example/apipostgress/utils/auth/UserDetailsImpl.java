@@ -1,4 +1,4 @@
-package com.example.apipostgress.models.auth;
+package com.example.apipostgress.utils.auth;
 
 import java.util.Collection;
 import java.util.Collections;

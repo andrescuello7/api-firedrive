@@ -8,9 +8,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.example.apipostgress.models.auth.AuthCredentials;
-import com.example.apipostgress.models.auth.UserDetailsImpl;
 import com.example.apipostgress.utils.TokenUtils;
+import com.example.apipostgress.utils.auth.AuthCredentials;
+import com.example.apipostgress.utils.auth.UserDetailsImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.FilterChain;

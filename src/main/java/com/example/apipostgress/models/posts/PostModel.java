@@ -1,20 +1,20 @@
 package com.example.apipostgress.models.posts;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
@@ -33,10 +33,9 @@ public class PostModel implements Serializable {
   @Column(name = "photo", columnDefinition = "TEXT DEFAULT ''")
   private String photo;
 
-  // TODO i18n: OneToMany relationship
-  @OneToMany
-  @JoinTable(name = "post_comment", joinColumns = @JoinColumn(name = "post_id"), inverseJoinColumns = @JoinColumn(name = "comment_id"))
-  private Collection<CommentModel> comments = new ArrayList<CommentModel>();
+  @JsonManagedReference
+  @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private List<CommentModel> comments;
 
   public Long getId() {
     return id;
@@ -62,11 +61,11 @@ public class PostModel implements Serializable {
     this.photo = photo;
   }
 
-  public Collection<CommentModel> getComments() {
+  public List<CommentModel> getComments() {
     return comments;
   }
 
-  public void setComments(Collection<CommentModel> comments) {
+  public void setComments(List<CommentModel> comments) {
     this.comments = comments;
   }
 }

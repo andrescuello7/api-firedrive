@@ -1,4 +1,4 @@
-package com.example.apipostgress.models.auth;
+package com.example.apipostgress.utils.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

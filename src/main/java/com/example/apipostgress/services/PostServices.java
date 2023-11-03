@@ -24,7 +24,7 @@ public class PostServices implements IPostServices {
   @Override
   @Transactional
   public List<PostModel> findAll() {
-    return postRepository.findAll();
+      return postRepository.findAll();
   }
 
   @Override

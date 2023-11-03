@@ -43,6 +43,7 @@ public class PostModel implements Serializable {
   @JoinColumn(name = "user_id")
   private UserModel user;
 
+
   @JsonManagedReference
   @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<CommentModel> comments;
@@ -78,4 +79,13 @@ public class PostModel implements Serializable {
   public void setComments(List<CommentModel> comments) {
     this.comments = comments;
   }
+
+  public UserModel getUser() {
+    return user;
+  }
+
+  public void setUser(UserModel user) {
+    this.user = user;
+  }
+  
 }

@@ -24,6 +24,11 @@ public class PostServices implements IPostServices {
   @Override
   @Transactional
   public List<PostModel> findAll() {
+    List<PostModel> findList = postRepository.findAll();
+    for (PostModel postModel : findList) {
+      postModel.setPhotoAuthor(postModel.getUser().getPhoto());
+      postModel.setUsername(postModel.getUser().getUsername());
+    }
     return postRepository.findAll();
   }
 
@@ -31,7 +36,6 @@ public class PostServices implements IPostServices {
   @Transactional
   public void deleteById(Long id) {
     List<CommentModel> comments = commentRepository.findAll();
-
     for (CommentModel commentModel : comments) {
       if (commentModel.getPost().getId() == id) {
         commentRepository.deleteById(commentModel.getId());;

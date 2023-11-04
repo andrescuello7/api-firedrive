@@ -1,7 +1,10 @@
 package com.example.apipostgress.models.posts;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
+
+import org.springframework.data.annotation.CreatedDate;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -34,9 +37,14 @@ public class PostModel implements Serializable {
   @Column(name = "description")
   private String description;
 
+  @Column(name = "username")
+  private String username;
+
+  @Column(name = "photoAuthor")
+  private String photoAuthor;
+
   @Column(name = "photo", columnDefinition = "TEXT DEFAULT ''")
   private String photo;
-
 
   @JsonBackReference
   @ManyToOne(fetch = FetchType.LAZY)
@@ -47,6 +55,10 @@ public class PostModel implements Serializable {
   @JsonManagedReference
   @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<CommentModel> comments;
+
+  @Column(name = "createAt")
+  @CreatedDate
+  private Date createAt;
 
   public Long getId() {
     return id;
@@ -87,5 +99,28 @@ public class PostModel implements Serializable {
   public void setUser(UserModel user) {
     this.user = user;
   }
-  
+
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public String getPhotoAuthor() {
+    return photoAuthor;
+  }
+
+  public void setPhotoAuthor(String photoAuthor) {
+    this.photoAuthor = photoAuthor;
+  }
+
+  public Date getCreateAt() {
+    return createAt;
+  }
+
+  public void setCreateAt(Date createAt) {
+    this.createAt = new Date();
+  }
 }

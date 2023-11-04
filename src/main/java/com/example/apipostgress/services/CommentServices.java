@@ -19,6 +19,8 @@ public class CommentServices implements ICommentServices {
   @Override
   @Transactional
   public CommentModel save(CommentModel model) {
+    // model.setPhotoAuthor(null);
+    // model.setUsername(null);
     return commentRepository.save(model);
   }
 

@@ -22,6 +22,12 @@ public class CommentModel {
 
   @Column(name = "description")
   private String description;
+
+  @Column(name = "username")
+  private String username;
+
+  @Column(name = "photoAuthor")
+  private String photoAuthor;
   
   @JsonBackReference
   @ManyToOne(fetch = FetchType.LAZY)
@@ -50,5 +56,21 @@ public class CommentModel {
 
   public void setPost(PostModel post) {
     this.post = post;
+  }
+
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public String getPhotoAuthor() {
+    return photoAuthor;
+  }
+
+  public void setPhotoAuthor(String photoAuthor) {
+    this.photoAuthor = photoAuthor;
   }
 }

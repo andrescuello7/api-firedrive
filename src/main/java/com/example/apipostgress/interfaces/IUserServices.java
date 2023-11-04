@@ -11,5 +11,6 @@ public interface IUserServices {
   public UserModel findByEmail(String email);
   public void deleteById(Long id);
   public UserModel save(UserModel model);
+  public UserModel update(UserModel model);
   public Boolean isAuthenticated(AuthModel auth);
 }

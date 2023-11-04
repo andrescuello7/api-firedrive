@@ -51,6 +51,12 @@ public class UserServices implements IUserServices {
     return userRepository.save(model);
   }
 
+  @Override
+  @Transactional
+  public UserModel update(UserModel model) {
+    return userRepository.save(model);
+  }
+
   @Transactional
   public Boolean isAuthenticated(AuthModel auth) {
     UserModel model = userRepository.findByEmail(auth.getEmail());

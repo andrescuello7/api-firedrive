@@ -74,7 +74,7 @@ public class UserController {
   public ResponseEntity<Object> update(@RequestBody UserModel user) {
     Map<String, Object> map = new HashMap<String, Object>();
     try {
-      UserModel response = userServices.save(user);
+      UserModel response = userServices.update(user);
       return new ResponseEntity<Object>(response, HttpStatus.OK);
     } catch (Exception e) {
       map.put(null, e.getMessage());
@@ -85,19 +85,6 @@ public class UserController {
   // Post users
   @PostMapping(value = "/users")
   public ResponseEntity<Object> create(@RequestBody UserModel user) {
-    Map<String, Object> map = new HashMap<String, Object>();
-    try {
-      UserModel response = userServices.save(user);
-      return new ResponseEntity<Object>(response, HttpStatus.OK);
-    } catch (Exception e) {
-      map.put(null, e.getMessage());
-      return new ResponseEntity<Object>(map, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-  }
-
-  // Auth method
-  @PutMapping(value = "/users")
-  public ResponseEntity<Object> updateUser(@RequestBody UserModel user) {
     Map<String, Object> map = new HashMap<String, Object>();
     try {
       UserModel response = userServices.save(user);

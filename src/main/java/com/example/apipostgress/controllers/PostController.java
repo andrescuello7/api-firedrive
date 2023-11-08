@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -70,6 +71,18 @@ public class PostController {
     }
   }
 
+  //Post Posts
+  @PutMapping(value = "/post")
+  public ResponseEntity<Object> update(@RequestBody PostModel post) {
+    Map<String, Object> map = new HashMap<String, Object>();
+    try {
+      PostModel response = postServices.update(post);
+      return new ResponseEntity<Object>(response, HttpStatus.OK);
+    } catch (Exception e) {
+      map.put(null, e.getMessage());
+      return new ResponseEntity<Object>(map, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 
   //Delete Posts
   @DeleteMapping(value = "/post/{id}")

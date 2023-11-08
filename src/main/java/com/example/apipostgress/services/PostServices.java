@@ -55,4 +55,12 @@ public class PostServices implements IPostServices {
   public PostModel save(PostModel model) {
     return postRepository.save(model);
   }
+  
+  @Override
+  @Transactional
+  public PostModel update(PostModel model) {
+    PostModel posts = postRepository.findById(model.getId()).orElse(null);
+    posts.setDescription(model.getDescription());
+    return postRepository.save(posts);
+  }
 }

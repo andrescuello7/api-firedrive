@@ -10,4 +10,5 @@ public interface IPostServices {
   public void deleteById(Long id);
   public Optional<PostModel> findById(Long id);
   public PostModel save(PostModel model);
+  public PostModel update(PostModel model);
 }

@@ -65,4 +65,11 @@ public class UserServices implements IUserServices {
     }
     return true;
   }
+
+  @Override
+  @Transactional
+  public UserModel addFollower(Long id) {
+    UserModel model = userRepository.findById(id).orElse(null);
+    return model;
+  }
 }

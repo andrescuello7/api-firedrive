@@ -13,4 +13,5 @@ public interface IUserServices {
   public UserModel save(UserModel model);
   public UserModel update(UserModel model);
   public Boolean isAuthenticated(AuthModel auth);
+  public UserModel addFollower(Long id);
 }

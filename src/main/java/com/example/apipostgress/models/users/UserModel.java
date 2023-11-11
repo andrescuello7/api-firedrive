@@ -13,8 +13,12 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
+import jakarta.persistence.JoinColumn;
 
 @Entity
 @Table(name = "users")
@@ -44,8 +48,17 @@ public class UserModel implements Serializable {
   @JsonManagedReference
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<PostModel> posts;
-  
 
+
+  @JsonManagedReference
+  @ManyToMany(fetch = FetchType.LAZY)
+  @JoinTable(
+          name = "user_followers",
+          joinColumns = @JoinColumn(name = "user_id"),
+          inverseJoinColumns = @JoinColumn(name = "follower_id")
+  )
+  private List<UserModel> followers;
+  
   public Long getId() {
     return id;
   }
@@ -93,5 +106,12 @@ public class UserModel implements Serializable {
   }
   public void setPosts(List<PostModel> posts) {
     this.posts = posts;
+  }
+
+  public List<UserModel> getFollowers() {
+    return followers;
+  }
+  public void setFollowers(List<UserModel> followers) {
+    this.followers = followers;
   }
 }

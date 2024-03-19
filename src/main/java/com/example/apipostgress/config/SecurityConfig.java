@@ -36,7 +36,7 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.applyPermitDefaultValues();
         // config.setAllowedOrigins(Arrays.asList("https://www.fivedrive.com.ar/"));
-        config.setAllowedOrigins(Arrays.asList("http://127.0.0.1:3000"));
+        config.setAllowedOrigins(Arrays.asList("http://127.0.0.1:8080"));
         config.addAllowedMethod("*");
         config.addAllowedHeader("*");
         source.registerCorsConfiguration("/**", config);

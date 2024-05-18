@@ -14,9 +14,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-// import org.springframework.web.cors.CorsConfiguration;
-// import org.springframework.web.cors.CorsConfigurationSource;
-// import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.example.apipostgress.config.Jwt.JwtAuthenticationFilter;
 import com.example.apipostgress.config.Jwt.JwtAutorizationFilter;
@@ -30,18 +30,19 @@ public class SecurityConfig {
     private UserDetailsService userDetailsService;
     private JwtAutorizationFilter jwtAutorizationFilter;
     
-    // @Bean
-    // CorsConfigurationSource corsConfigurationSource() {
-    //     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    //     CorsConfiguration config = new CorsConfiguration();
-    //     config.applyPermitDefaultValues();
-    //     config.setAllowedOrigins(Arrays.asList("https://www.fivedrive.com.ar/"));
-    //     config.setAllowedOrigins(Arrays.asList("http://127.0.0.1:8080"));
-    //     config.addAllowedMethod("*");
-    //     config.addAllowedHeader("*");
-    //     source.registerCorsConfiguration("/**", config);
-    //     return source;
-    // }
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.applyPermitDefaultValues();
+        // config.setAllowedOrigins(Arrays.asList("https://www.fivedrive.com.ar/"));
+        config.setAllowedOrigins(Arrays.asList("https://firedrive.vercel.app/"));
+        // config.setAllowedOrigins(Arrays.asList("http://127.0.0.1:8080"));
+        config.addAllowedMethod("*");
+        config.addAllowedHeader("*");
+        source.registerCorsConfiguration("/**", config);
+        return source;
+    }
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager authManager) throws Exception {

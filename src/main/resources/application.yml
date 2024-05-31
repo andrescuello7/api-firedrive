@@ -9,10 +9,10 @@ management:
 
 info:
   application:
-    name: spring-blog
+    name: api-fivedrive
     description: A blog with articles about The Spring Framework.
-    author: Dan Vega
-    version: '@project.version@'
+    author: Andres Cuello
+    version: '4'
 spring:
   profiles:
     active: dev

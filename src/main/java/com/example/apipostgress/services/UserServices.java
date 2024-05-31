@@ -47,13 +47,16 @@ public class UserServices implements IUserServices {
   public UserModel save(UserModel model) {
     String encryptedPass = new BCryptPasswordEncoder().encode(model.getPassword());
     model.setPassword(encryptedPass);
-    System.out.println(model.getPassword());
     return userRepository.save(model);
   }
 
   @Override
   @Transactional
   public UserModel update(UserModel model) {
+    if (model.getPassword() != null) {
+      String encryptedPass = new BCryptPasswordEncoder().encode(model.getPassword());
+      model.setPassword(encryptedPass);
+    }
     return userRepository.save(model);
   }
 

@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.example.apipostgress.models.posts.PostModel;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -22,6 +24,7 @@ import jakarta.persistence.JoinColumn;
 
 @Entity
 @Table(name = "users")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class UserModel implements Serializable {
   private static final long serialVersionUID = 1L;
 
@@ -45,12 +48,10 @@ public class UserModel implements Serializable {
   @Column(name = "cover")
   private String cover;
 
-  @JsonManagedReference
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JsonManagedReference
   private List<PostModel> posts;
 
-
-  @JsonManagedReference
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(
           name = "user_followers",

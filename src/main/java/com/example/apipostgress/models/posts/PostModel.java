@@ -20,12 +20,13 @@ import jakarta.persistence.Table;
 
 import com.example.apipostgress.models.users.UserModel;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = "posts")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class PostModel implements Serializable {
   private static final long serialVersionUID = 1L;
 
@@ -46,9 +47,9 @@ public class PostModel implements Serializable {
   @Column(name = "photo", columnDefinition = "TEXT DEFAULT ''")
   private String photo;
 
-  @JsonBackReference
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id")
+  @JsonBackReference
   private UserModel user;
 
 

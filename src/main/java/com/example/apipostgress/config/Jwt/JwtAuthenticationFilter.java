@@ -24,13 +24,15 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest request,
             HttpServletResponse response) throws AuthenticationException {
         AuthCredentials credentials = new AuthCredentials();
-
+        
         try {
             credentials = new ObjectMapper().readValue(request.getReader(), AuthCredentials.class);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
+        
+        System.out.println(credentials.getUsername());
+        System.out.println(credentials.getPassword());
         UsernamePasswordAuthenticationToken usernamePAT = new UsernamePasswordAuthenticationToken(
                 credentials.getUsername(), credentials.getPassword(), Collections.emptyList());
 

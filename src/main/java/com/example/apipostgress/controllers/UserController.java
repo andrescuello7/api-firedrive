@@ -87,6 +87,9 @@ public class UserController {
   public ResponseEntity<Object> create(@RequestBody UserModel user) {
     Map<String, Object> map = new HashMap<String, Object>();
     try {
+      System.out.println("Register");
+      System.out.println(user.getUsername());
+      System.out.println(user.getPassword());
       UserModel response = userServices.save(user);
       return new ResponseEntity<Object>(response, HttpStatus.OK);
     } catch (Exception e) {
